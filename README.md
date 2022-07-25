@@ -8,7 +8,7 @@ This web application retrieves and displays the user repositories and organisati
 - [Axios](https://axios-http.com/docs/intro)
 
 
-## Setting Up
+## Setting Up Locally
 
 - Clone the repository to your machine
 - Open up a terminal
