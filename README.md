@@ -1,6 +1,6 @@
 # Github Search
 
-This is app serves as the frontend to an authentication app which makes use of Typescript and React-Bootstrap
+This web application retrieves and displays the user repositories and organisations in Github.
 
 ## Dependences
 
