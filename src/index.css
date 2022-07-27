@@ -100,8 +100,19 @@ button:disabled:active {
 .error-text {
   color: #b40e0e;
 }
-.grid {
+.search-area {
+  margin-top: 130px;
   display: grid;
+  justify-content: center;
+}
+.result-area {
+  justify-content: center;
+}
+.status-message {
+  display: flex;
+  justify-contnet: center;
+  width: 50vw;
+  margin: 0 auto;
 }
 
 @media only screen and (min-width: 768px) {

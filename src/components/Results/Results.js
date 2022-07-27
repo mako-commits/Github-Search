@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Card, ListGroup, Tab, Tabs } from "react-bootstrap";
+import { Alert } from "bootstrap";
+import NotFound from "../NotFound";
+import Loading from "../Loading";
 
 const Results = ({ inputValue }) => {
   const [loading, setLoading] = useState(false);
@@ -115,16 +118,16 @@ const Results = ({ inputValue }) => {
   ));
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
   if (error.message === "Request failed with status code 404") {
-    return <p>User not found</p>;
+    return <NotFound />;
   }
   if (error.message === "Network Error") {
-    return <p>Connection Error</p>;
+    return <p className="status-message">Connection Error</p>;
   }
   return (
-    <section>
+    <section className="result-area">
       {show && (
         <Tabs
           defaultActiveKey="repos"
