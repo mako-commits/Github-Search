@@ -38,6 +38,7 @@ const Search = ({ setInputValue }) => {
               onChange={usernameChangeHandler}
               onBlur={usernameBlurHandler}
               placeholder="Enter a Github username"
+              reset
             />
             {usernameHasError && <p className="error-text">Enter a username</p>}
           </Form.Group>

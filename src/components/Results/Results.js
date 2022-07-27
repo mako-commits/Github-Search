@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, ListGroup, Tab, Tabs } from "react-bootstrap";
+import { Card, ListGroup, Tab, Tabs, Table } from "react-bootstrap";
 import { Alert } from "bootstrap";
 import NotFound from "../NotFound";
 import Loading from "../Loading";
@@ -49,73 +49,28 @@ const Results = ({ inputValue }) => {
   }, [inputValue]);
 
   const repoList = repos.map((repo) => (
-    <Card
-      bg="Light"
-      key={repo.id}
-      style={{ width: "18rem" }}
-      border="secondary"
-      className="mb-2"
-    >
-      <Card.Header>
-        <Card.Title>
-          <a href={repo.url} target="_blank" rel="noreferrer">
-            {repo.name}
+    <tr key={repo.id}>
+      <td>
+        <b>{repo.name}</b>
+      </td>
+      <td>{repo.description || "No Description"}</td>
+      <td>{repo.language || "Not Specified"}</td>
+      <td>{repo.visibility}</td>
+      <td>{repo.watchers}</td>
+      <td>{repo.open_issues}</td>
+      <td>{repo.forks_count}</td>
+      <td>
+        {repo.homepage ? (
+          <a href={repo.homepage} target="_blank" rel="noreferrer">
+            View Homepage
           </a>
-        </Card.Title>
-      </Card.Header>
-      <Card.Body>
-        <ListGroup>
-          <ListGroup.Item>Owner: {repo.owner["login"]}</ListGroup.Item>
-          <ListGroup.Item>Visibility: {repo.visibility}</ListGroup.Item>
-          <ListGroup.Item>Watchers: {repo.watchers}</ListGroup.Item>
-          <ListGroup.Item>Open Issues: {repo.open_issues}</ListGroup.Item>
-          <ListGroup.Item>Language: {repo.language}</ListGroup.Item>
-          <ListGroup.Item>Forks: {repo.forks}</ListGroup.Item>
-          <ListGroup.Item>
-            Homepage:{" "}
-            <a href={repo.homepage} target="_blank" rel="noreferrer">
-              {repo.homepage}
-            </a>{" "}
-          </ListGroup.Item>
-        </ListGroup>
-      </Card.Body>
-    </Card>
+        ) : (
+          "No homepage available"
+        )}
+      </td>
+    </tr>
   ));
-
-  const orgsList = orgs.map((org) => (
-    <h1 key={org.id}>{org.name}</h1>
-    //  <Card
-    //    bg="Light"
-    //    key={repo.id}
-    //    style={{ width: "18rem" }}
-    //    border="secondary"
-    //    className="mb-2"
-    //  >
-    //    <Card.Header>
-    //      <Card.Title>
-    //        <a href={repo.url} target="_blank" rel="noreferrer">
-    //          {repo.name}
-    //        </a>
-    //      </Card.Title>
-    //    </Card.Header>
-    //    <Card.Body>
-    //      <ListGroup>
-    //        <ListGroup.Item>Owner: {repo.owner["login"]}</ListGroup.Item>
-    //        <ListGroup.Item>Visibility: {repo.visibility}</ListGroup.Item>
-    //        <ListGroup.Item>Watchers: {repo.watchers}</ListGroup.Item>
-    //        <ListGroup.Item>Open Issues: {repo.open_issues}</ListGroup.Item>
-    //        <ListGroup.Item>Language: {repo.language}</ListGroup.Item>
-    //        <ListGroup.Item>Forks: {repo.forks}</ListGroup.Item>
-    //        <ListGroup.Item>
-    //          Homepage:{" "}
-    //          <a href={repo.homepage} target="_blank" rel="noreferrer">
-    //            {repo.homepage}
-    //          </a>{" "}
-    //        </ListGroup.Item>
-    //      </ListGroup>
-    //    </Card.Body>
-    //  </Card>
-  ));
+  const orgsList = orgs.map((org) => <h1 key={org.id}>{org.name}</h1>);
 
   if (loading) {
     return <Loading />;
@@ -136,7 +91,25 @@ const Results = ({ inputValue }) => {
           fill
         >
           <Tab eventKey="repos" title={`Repos (${repos.length})`}>
-            {!error && <div className="grid">{repoList} </div>}{" "}
+            {/* {!error && <div className="grid">{repoList} </div>}{" "} */}
+            {!error && (
+              <Table responsive striped bordered>
+                <thead>
+                  <tr>
+                    <th>Repo Name</th>
+                    <th>Description</th>
+                    <th>Primary Language</th>
+                    <th>Visibility</th>
+                    <th># Watchers</th>
+                    <th># Open Issues</th>
+                    <th># Number of Forks</th>
+                    <th>Homepage</th>
+                  </tr>
+                </thead>
+
+                <tbody>{repoList}</tbody>
+              </Table>
+            )}
           </Tab>
           <Tab eventKey="orgs" title={`Organizations (${orgs.length})`}>
             {(orgsList.length = 0 ? <h2>Wow.....such empty</h2> : orgsList)}
